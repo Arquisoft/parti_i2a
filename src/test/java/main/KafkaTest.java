@@ -1,4 +1,4 @@
-package dashboard;
+package main;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import dashboard.listeners.MessageListener;

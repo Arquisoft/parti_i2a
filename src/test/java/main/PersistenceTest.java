@@ -1,4 +1,4 @@
-package dashboard;
+package main;
 
 import dashboard.dashboard.model.Category;
 import dashboard.dashboard.model.Comment;

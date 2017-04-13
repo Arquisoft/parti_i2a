@@ -1,11 +1,11 @@
-package dashboard.cucumber;
+package main.cucumber;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import main.Application;
 import dashboard.dashboard.model.Proposal;
 import dashboard.dashboard.repositories.ProposalRepository;
+import main.Application;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

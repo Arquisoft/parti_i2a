@@ -1,4 +1,4 @@
-package dashboard.cucumber;
+package main.cucumber;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
