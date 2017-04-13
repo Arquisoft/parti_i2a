@@ -1,0 +1,99 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<style>
+	/* Credit to bootsnipp.com for the css for the color graph */
+	.colorgraph {
+	  height: 5px;
+	  border-top: 0;
+	  background: #c4e17f;
+	  border-radius: 5px;
+	  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+	}
+	body{margin:40px;}
+	
+	.btn-circle {
+	  margin-top: 10px;
+	  margin-left: 43%;
+	  width: 30px;
+	  height: 30px;
+	  text-align: center;
+	  padding: 6px 0;
+	  font-size: 12px;
+	  line-height: 1.428571429;
+	  border-radius: 15px;
+	}
+	.btn-circle.btn-lg {
+	  width: 50px;
+	  height: 50px;
+	  padding: 10px 16px;
+	  font-size: 18px;
+	  line-height: 1.33;
+	  border-radius: 25px;
+	}
+	.btn-circle.btn-xl {
+	  width: 70px;
+	  height: 70px;
+	  padding: 10px 16px;
+	  font-size: 24px;
+	  line-height: 1.33;
+	  border-radius: 35px;
+	}
+	</style>
+<title>Participation System</title>
+</head>
+<body>
+<div class="container">
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+			<fieldset>
+				<h2>Administrator</h2>
+				<hr class="colorgraph"/>
+				<div>
+				<form th:action="@{/addCategory}" th:object="${controlAdmin}" method="post">
+				<label for="checkcat">Add category:</label>
+				<div class="form-group">
+					<input rows="1" id="category" th:field="*{category}" class="form-control input-lg"/>
+					<button type="submit" id="ok1" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i></button>
+				</div>
+				</form>
+				</div>
+				<form th:action="@{/addNotAllowedWords}" th:object="${controlAdmin}" method="post">
+				<label for="checkcat">Add non-allowed words (separated by commas):</label>
+				<div class="form-group">
+					<textArea rows="1" id="words" type="proposal" th:field="*{text}" class="form-control input-lg">
+					</textArea>
+					<button type="submit" id="ok2" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i></button>
+				</div>
+				</form>
+				<br/>
+				<div>
+				<form th:action="@{/deleteProposal}" th:object="${controlAdmin}" method="post">
+				<label for="checkcat">Delete proposal:</label>
+				<div class="form-group">
+				<select class="form-control" th:field="*{proposal}">
+				  <option th:each="proposal : ${proposals}" 
+				          th:value="${proposal.id}" 
+				          th:text="${proposal.content}"></option>
+				</select> 
+					<button type="submit" id="ok3" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i></button>
+				</div>
+			</form>
+			<!-- <label for="checkcat">Add date:</label>
+				<div class="form-group">
+					<input rows="1" type="date" id="addDate" th:field="*{text}" class="form-control input-lg"/>
+					<button type="submit" id="ok4" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i></button>
+				</div> -->
+				</div> 
+				<br/>
+				<hr class="colorgraph"/>
+			</fieldset>
+	</div>
+</div>
+<a href="/logout" class="btn btn-primary"><i class="icon-home icon-white"></i>Logout</a>
+</div>
+</body>
+</html>
