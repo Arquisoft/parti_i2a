@@ -23,6 +23,7 @@ import participationSystem.persistence.CommentDao;
 import participationSystem.persistence.Persistence;
 import participationSystem.persistence.ProposalDao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,7 @@ public class MainController {
 
 	@RequestMapping("/dashboard")
 	public String landing() throws InterruptedException {
-		if(latch) {
+		if (latch) {
 			latch = false;
 			report.loadDatabaseData();
 		}
@@ -71,7 +72,7 @@ public class MainController {
 		model.addAttribute("controlAdmin", new ControlAdmin());
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		this.user = Persistence.getUserDao().getUserByEmail(email);
-		
+
 		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().equals("[ROLE_ADMIN]"))
 			return "/admin";
 		return "/user/home";
@@ -81,7 +82,7 @@ public class MainController {
 	public String login(Model model) {
 		return "login";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(Model model) {
 		SecurityContextHolder.clearContext();
@@ -113,7 +114,7 @@ public class MainController {
 		Integer idInt = Integer.parseInt(id);
 		Proposal proposal = pDao.getProposalById(idInt);
 		List<Comment> commentsList = cDao.getCommentsFromProposalId(idInt);
-		
+
 		model.addAttribute("proposal", proposal);
 		model.addAttribute("commentsList", commentsList);
 		model.addAttribute("addComment", new AddComment());
@@ -200,7 +201,7 @@ public class MainController {
 	public String mensajeError(Model model) {
 		return "/mensajeError";
 	}
-	
+
 	@RequestMapping(value = "/user/orderCommentsPopularity/{id}", method = RequestMethod.GET)
 	public String orderCommentsPopularity(Model model, @PathVariable("id") String id) {
 		Integer idInt = Integer.parseInt(id);
@@ -213,7 +214,7 @@ public class MainController {
 
 		return "/user/proposal";
 	}
-	
+
 	@RequestMapping(value = "/user/orderCommentsDate/{id}", method = RequestMethod.GET)
 	public String orderCommentsDate(Model model, @PathVariable("id") String id) {
 		Integer idInt = Integer.parseInt(id);

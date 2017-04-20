@@ -1,10 +1,15 @@
 package participationSystem.persistence;
 
-import participationSystem.persistence.impl.*;
+import citizensLoader.persistence.UserDao;
+import citizensLoader.persistence.impl.UserDaoImpl;
+import participationSystem.persistence.impl.CategoryDaoImpl;
+import participationSystem.persistence.impl.CommentDaoImpl;
+import participationSystem.persistence.impl.ProposalDaoImpl;
+import participationSystem.persistence.impl.WordDaoImpl;
 
 public class Persistence {
 	public static UserDao getUserDao() {
-		return new UserDaoImpl();
+			return new UserDaoImpl();
 	}
 
 	public static ProposalDao getProposalDao() {
