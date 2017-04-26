@@ -2,7 +2,8 @@ package dto;
 
 import org.junit.Before;
 import org.junit.Test;
-import participationSystem.dto.Proposal;
+
+import participationSystem.hello.dto.Proposal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

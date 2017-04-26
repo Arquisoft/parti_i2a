@@ -2,7 +2,8 @@ package dto;
 
 import org.junit.Before;
 import org.junit.Test;
-import participationSystem.dto.User;
+
+import common.dto.User;
 
 import java.text.DateFormat;
 import java.text.ParseException;

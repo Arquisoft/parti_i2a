@@ -1,4 +1,4 @@
-package participationSystem.dto;
+package common.dto;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

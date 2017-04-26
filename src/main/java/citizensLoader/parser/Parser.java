@@ -2,7 +2,7 @@ package citizensLoader.parser;
 
 import java.util.List;
 
-import participationSystem.dto.User;
+import common.dto.User;
 
 /**
  * Interface for all Parser objects. 

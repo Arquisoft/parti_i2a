@@ -7,7 +7,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
-import participationSystem.dto.User;
+import common.dto.User;
 
 public class PDFLetter implements Writtable{
 

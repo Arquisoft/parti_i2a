@@ -12,9 +12,9 @@ import org.junit.Test;
 
 import citizensLoader.letters.PDFLetter;
 import citizensLoader.parser.XlsxParser;
-import citizensLoader.persistence.UserDao;
-import citizensLoader.persistence.impl.UserDaoImpl;
-import participationSystem.dto.User;
+import common.dto.User;
+import common.persistence.UserDao;
+import common.persistence.impl.UserDaoImpl;
 
 /**
  * Clase que prueba la implementación del parseador de archivos en formato

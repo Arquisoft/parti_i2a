@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-import participationSystem.dto.User;
+import common.dto.User;
 
 public class WordLetter implements Writtable{
 	

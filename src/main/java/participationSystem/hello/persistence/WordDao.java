@@ -1,4 +1,4 @@
-package participationSystem.persistence;
+package participationSystem.hello.persistence;
 
 import java.util.List;
 

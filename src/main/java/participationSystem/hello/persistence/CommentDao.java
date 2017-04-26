@@ -1,8 +1,8 @@
-package participationSystem.persistence;
-
-import participationSystem.dto.Comment;
+package participationSystem.hello.persistence;
 
 import java.util.List;
+
+import participationSystem.hello.dto.Comment;
 
 public interface CommentDao {
 

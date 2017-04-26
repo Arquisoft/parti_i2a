@@ -1,6 +1,6 @@
 package participationSystem.hello.model;
 
-import participationSystem.dto.Category;
+import participationSystem.hello.dto.Category;
 
 public class AddProposal {
 

@@ -2,7 +2,7 @@ package citizensLoader.letters;
 
 import java.io.IOException;
 
-import participationSystem.dto.User;
+import common.dto.User;
 
 public class SendLetters {
 	

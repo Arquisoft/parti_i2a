@@ -1,8 +1,4 @@
-package participationSystem.persistence.impl;
-
-import participationSystem.dto.Category;
-import participationSystem.persistence.CategoryDao;
-import participationSystem.persistence.Database;
+package participationSystem.hello.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import common.persistence.Database;
+import participationSystem.hello.dto.Category;
+import participationSystem.hello.persistence.CategoryDao;
 
 public class CategoryDaoImpl implements CategoryDao {
 

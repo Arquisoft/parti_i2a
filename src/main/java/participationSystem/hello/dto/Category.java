@@ -1,4 +1,4 @@
-package participationSystem.dto;
+package participationSystem.hello.dto;
 
 public class Category {
 

@@ -9,8 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import participationSystem.dto.User;
-import participationSystem.persistence.Persistence;
+import common.dto.User;
+import common.persistence.CommonPersistence;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// .withUser(email).password("password").roles("USER");
 		// }
 
-		List<User> users = Persistence.getUserDao().findAllUsers();
+		List<User> users = CommonPersistence.getUserDao().findAllUsers();
 
 		for (User u : users) {
 			auth.inMemoryAuthentication().withUser(u.getEmail()).password(u.getPassword()).roles("USER");

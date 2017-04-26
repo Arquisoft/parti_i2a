@@ -14,9 +14,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import citizensLoader.letters.SendLetters;
 import citizensLoader.letters.Writtable;
-import citizensLoader.persistence.UserDao;
-import participationSystem.dto.User;
-import citizensLoader.persistence.impl.UserDaoImpl;
+import common.dto.User;
+import common.persistence.UserDao;
+import common.persistence.impl.UserDaoImpl;
 
 /**
  * Implementation of a Parser for Excel files

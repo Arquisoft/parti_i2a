@@ -11,7 +11,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.Test;
 
 import citizensLoader.letters.WordLetter;
-import participationSystem.dto.User;
+import common.dto.User;
 
 /**
  * Clase que prueba la implementación de las cartas

@@ -1,6 +1,6 @@
-package participationSystem.dto;
+package participationSystem.hello.dto;
 
-import participationSystem.persistence.Persistence;
+import common.persistence.CommonPersistence;
 
 public class Proposal {
 	private Integer id;
@@ -59,7 +59,7 @@ public class Proposal {
 	}
 	
 	public String getCategoryName(){
-		Category cat = Persistence.getCategoryDao().getCategoryById(categoryId);
+		Category cat = CommonPersistence.getCategoryDao().getCategoryById(categoryId);
 		return cat.getName();
 	}
 

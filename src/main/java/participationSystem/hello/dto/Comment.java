@@ -1,9 +1,10 @@
-package participationSystem.dto;
-
-import participationSystem.persistence.Persistence;
+package participationSystem.hello.dto;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import common.dto.User;
+import common.persistence.CommonPersistence;
 
 public class Comment {
 	private Integer id;
@@ -86,7 +87,7 @@ public class Comment {
 	}
 	
 	public String getUserName(){
-		User user = Persistence.getUserDao().getUserById(userId);
+		User user = CommonPersistence.getUserDao().getUserById(userId);
 		return user.getFirstName() + " " + user.getLastName();
 	}
 

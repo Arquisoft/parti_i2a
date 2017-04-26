@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import citizensLoader.letters.PDFLetter;
-import participationSystem.dto.User;
+import common.dto.User;
 
 /**
  * Clase que prueba la implementación de las cartas

@@ -1,4 +1,4 @@
-package citizensLoader.persistence.impl;
+package common.persistence.impl;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,9 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 import citizensLoader.logger.ReportWritter;
-import participationSystem.persistence.Database;
-import citizensLoader.persistence.UserDao;
-import participationSystem.dto.User;
+import common.dto.User;
+import common.persistence.Database;
+import common.persistence.UserDao;
 
 public class UserDaoImpl implements UserDao {
 	// private static String SQL_FIND_USER_BY_ID =
@@ -196,13 +196,13 @@ public class UserDaoImpl implements UserDao {
 
 		for (User c : list) {
 			// if the user is not in the database, persist
-			if (!citizenExists(c)) {
+			if (!userExists(c)) {
 				createUser(c);
 			} else {
 				log.record("The citizen " + c.getFirstName() + " " + c.getLastName() + " has already an user",
 						filename);
 				// and if the data is different we put that error in the log
-				if (!citizenHasSameData(c)) {
+				if (!userHasSameData(c)) {
 					log.record("The citizen " + c.getFirstName() + " " + c.getLastName() + " has different data in the"
 							+ " database and in the document", filename);
 				}
@@ -219,7 +219,7 @@ public class UserDaoImpl implements UserDao {
 	 * @return true if it exists, false if not
 	 */
 	@Override
-	public boolean citizenExists(User user) {
+	public boolean userExists(User user) {
 		User userDB = getUserByEmail(user.getEmail());
 		return userDB != null;
 	}
@@ -232,7 +232,7 @@ public class UserDaoImpl implements UserDao {
 	 * @return true if there is no user with different data, false otherwise
 	 */
 	@Override
-	public boolean citizenHasSameData(User user) {
+	public boolean userHasSameData(User user) {
 		User userDB = getUserByEmail(user.getEmail());
 		return !userDB.equals(user);
 	}
@@ -261,6 +261,8 @@ public class UserDaoImpl implements UserDao {
 				User user = new User(dni, name, surname, birth, address, email, nationality, polling);
 				user.setId(idBase);
 				user.setPassword(pass);
+				
+				users.add(user);
 			}
 
 			return users;

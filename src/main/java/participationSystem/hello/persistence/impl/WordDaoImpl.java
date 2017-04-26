@@ -1,7 +1,4 @@
-package participationSystem.persistence.impl;
-
-import participationSystem.persistence.Database;
-import participationSystem.persistence.WordDao;
+package participationSystem.hello.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import common.persistence.Database;
+import participationSystem.hello.persistence.WordDao;
 
 public class WordDaoImpl implements WordDao {
 

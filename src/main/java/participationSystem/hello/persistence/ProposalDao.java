@@ -1,8 +1,8 @@
-package participationSystem.persistence;
-
-import participationSystem.dto.Proposal;
+package participationSystem.hello.persistence;
 
 import java.util.List;
+
+import participationSystem.hello.dto.Proposal;
 
 public interface ProposalDao {
 

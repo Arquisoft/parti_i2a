@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import participationSystem.dto.User;
+import common.dto.User;
 
 public class TxtLetter implements Writtable {
 	

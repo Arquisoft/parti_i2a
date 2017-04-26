@@ -1,9 +1,4 @@
-package participationSystem.persistence.impl;
-
-import participationSystem.dto.Comment;
-import participationSystem.persistence.CommentDao;
-import participationSystem.persistence.Database;
-import participationSystem.persistence.Persistence;
+package participationSystem.hello.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,16 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CommentDaoImpl implements CommentDao {
+import common.persistence.Database;
+import common.persistence.CommonPersistence;
+import participationSystem.hello.dto.Comment;
+import participationSystem.hello.persistence.CommentDao;
 
-	// private static String SQL_COMMENT_ORDER_BY_DATE =
-	// Conf.getInstance().getProperty("SQL_COMMENT_ORDER_BY_DATE");
-	// private static String SQL_INSERT_COMMENT =
-	// Conf.getInstance().getProperty("SQL_INSERT_COMMENT");
-	// private static String SQL_COMMENT_ORDER_BY_POPULARITY =
-	// Conf.getInstance().getProperty("SQL_COMMENT_ORDER_BY_POPULARITY");
-	// private static String SQL_PROPOSAL_COMMENT =
-	// Conf.getInstance().getProperty("SQL_PROPOSAL_COMMENT");
+public class CommentDaoImpl implements CommentDao {
 
 	private static String SQL_COMMENT_ORDER_BY_POPULARITY = "SELECT * FROM comments WHERE PROPOSAL_ID=? ORDER BY VOTES DESC";
 	private static String SQL_INSERT_COMMENT = "INSERT INTO comments (content, votes, date, user_id, proposal_id) "
@@ -74,7 +65,7 @@ public class CommentDaoImpl implements CommentDao {
 	public void createComment(Comment p) throws Exception {
 		PreparedStatement pst = null;
 		try {
-			if (Persistence.getWordDao().checkContent(p.getContent())) {
+			if (CommonPersistence.getWordDao().checkContent(p.getContent())) {
 				pst = con.prepareStatement(SQL_INSERT_COMMENT);
 				pst.setString(1, p.getContent());
 				pst.setInt(2, p.getVotes());

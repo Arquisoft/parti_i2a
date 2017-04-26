@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import common.dto.User;
+import common.persistence.CommonPersistence;
 import dashboard.dashboard.services.impl.Report;
-import participationSystem.dto.Category;
-import participationSystem.dto.Comment;
-import participationSystem.dto.Proposal;
-import participationSystem.dto.User;
+import participationSystem.hello.dto.Category;
+import participationSystem.hello.dto.Comment;
+import participationSystem.hello.dto.Proposal;
 import participationSystem.hello.model.AddComment;
 import participationSystem.hello.model.AddProposal;
 import participationSystem.hello.model.ControlAdmin;
+import participationSystem.hello.persistence.CommentDao;
+import participationSystem.hello.persistence.ProposalDao;
 import participationSystem.hello.producers.KafkaProducer;
-import participationSystem.persistence.CommentDao;
-import participationSystem.persistence.Persistence;
-import participationSystem.persistence.ProposalDao;
 
 @Controller
 public class MainController {
@@ -34,8 +34,8 @@ public class MainController {
 	@Autowired
 	private KafkaProducer kafkaProducer;
 
-	private ProposalDao pDao = Persistence.getProposalDao();
-	private CommentDao cDao = Persistence.getCommentaryDao();
+	private ProposalDao pDao = CommonPersistence.getProposalDao();
+	private CommentDao cDao = CommonPersistence.getCommentaryDao();
 	private User user;
 
 	private static final Logger logger = Logger.getLogger(MainController.class);
@@ -71,7 +71,7 @@ public class MainController {
 		model.addAttribute("proposals", pDao.getProposals());
 		model.addAttribute("controlAdmin", new ControlAdmin());
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-		this.user = Persistence.getUserDao().getUserByEmail(email);
+		this.user = CommonPersistence.getUserDao().getUserByEmail(email);
 
 		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().equals("[ROLE_ADMIN]"))
 			return "/admin";
@@ -105,7 +105,7 @@ public class MainController {
 	@RequestMapping(value = "/user/addForm", method = RequestMethod.GET)
 	public String goToForm(Model model) {
 		model.addAttribute("addProposal", new AddProposal());
-		model.addAttribute("categoriesList", Persistence.getCategoryDao().findAllCategories());
+		model.addAttribute("categoriesList", CommonPersistence.getCategoryDao().findAllCategories());
 		return "/user/add-form";
 	}
 
@@ -173,14 +173,14 @@ public class MainController {
 	@RequestMapping("/addCategory")
 	public String addCategory(Model model, @ModelAttribute ControlAdmin controlAdmin) {
 		Category category = new Category(controlAdmin.getCategory());
-		Persistence.getCategoryDao().createCategory(category);
+		CommonPersistence.getCategoryDao().createCategory(category);
 		kafkaProducer.send("addCategory", category.getName());
 		return "/admin";
 	}
 
 	@RequestMapping("/addNotAllowedWords")
 	public String addNotAllowedWords(Model model, @ModelAttribute ControlAdmin controlAdmin) {
-		Persistence.getWordDao().add(controlAdmin.getPalabras());
+		CommonPersistence.getWordDao().add(controlAdmin.getPalabras());
 		kafkaProducer.send("addedNotAllowedWords", controlAdmin.getPalabras().toString());
 		return "/admin";
 	}
@@ -188,8 +188,8 @@ public class MainController {
 	@RequestMapping("/deleteProposal")
 	public String deleteProposal(Model model, @ModelAttribute ControlAdmin controlAdmin) {
 		Integer id = Integer.parseInt(controlAdmin.getProposal());
-		Proposal proposal = Persistence.getProposalDao().getProposalById(id);
-		Persistence.getProposalDao().deleteProposalById(proposal.getId());
+		Proposal proposal = CommonPersistence.getProposalDao().getProposalById(id);
+		CommonPersistence.getProposalDao().deleteProposalById(proposal.getId());
 
 		model.addAttribute("controlAdmin", new ControlAdmin());
 		model.addAttribute("proposals", pDao.getProposals());

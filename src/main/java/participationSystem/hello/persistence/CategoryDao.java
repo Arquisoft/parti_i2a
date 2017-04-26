@@ -1,8 +1,8 @@
-package participationSystem.persistence;
-
-import participationSystem.dto.Category;
+package participationSystem.hello.persistence;
 
 import java.util.List;
+
+import participationSystem.hello.dto.Category;
 
 public interface CategoryDao {
 

@@ -10,12 +10,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-import citizensLoader.persistence.UserDao;
-import participationSystem.dto.User;
-import participationSystem.persistence.Persistence;
+import common.dto.User;
+import common.persistence.CommonPersistence;
+import common.persistence.UserDao;
 
 public class UserPersistenceTest {
-	private UserDao dao = Persistence.getUserDao();
+	private UserDao dao = CommonPersistence.getUserDao();
 
 	@Test
 	public void testFindById() throws ParseException {

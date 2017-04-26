@@ -1,9 +1,9 @@
-package citizensLoader.persistence;
+package common.persistence;
 
 import java.io.IOException;
 import java.util.List;
 
-import participationSystem.dto.User;
+import common.dto.User;
 
 public interface UserDao {
 
@@ -17,9 +17,9 @@ public interface UserDao {
 
 	void sendToDB(List<User> users, String name) throws IOException;
 
-	boolean citizenExists(User user);
+	boolean userExists(User user);
 
-	boolean citizenHasSameData(User user);
+	boolean userHasSameData(User user);
 
 	List<User> findAllUsers();
 }

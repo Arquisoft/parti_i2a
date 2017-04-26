@@ -1,9 +1,4 @@
-package participationSystem.persistence.impl;
-
-import participationSystem.dto.Proposal;
-import participationSystem.persistence.Database;
-import participationSystem.persistence.Persistence;
-import participationSystem.persistence.ProposalDao;
+package participationSystem.hello.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.persistence.Database;
+import common.persistence.CommonPersistence;
+import participationSystem.hello.dto.Proposal;
+import participationSystem.hello.persistence.ProposalDao;
+
 public class ProposalDaoImpl implements ProposalDao {
+	private static String SQL_FIND_BY_ID = "SELECT * FROM proposals WHERE ID=?";
+	private static String SQL_FIND_ALL = "SELECT * FROM proposals";
+	private static String SQL_INSERT = "INSERT INTO proposals(content, votes, user_id, category_id) VALUES (?,?,?, ?)";
+	private static String SQL_UPDATE = "UPDATE proposals SET CONTENT = ?, VOTES = ?, CATEGORY_ID = ?" + "WHERE ID = ?";
+	private static String SQL_DELETE_COMMENTS =  "DELETE FROM comments WHERE PROPOSAL_ID=?";
+	private static String SQL_DELETE_PROPOSAL =  "DELETE FROM proposals WHERE ID=?";
 
 	private Connection con = Database.getConnection();
 
@@ -21,7 +27,7 @@ public class ProposalDaoImpl implements ProposalDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			pst = con.prepareStatement("SELECT * FROM proposals WHERE ID=?");
+			pst = con.prepareStatement(SQL_FIND_BY_ID);
 			pst.setInt(1, id);
 
 			rs = pst.executeQuery();
@@ -64,7 +70,7 @@ public class ProposalDaoImpl implements ProposalDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			pst = con.prepareStatement("SELECT * FROM proposals");
+			pst = con.prepareStatement(SQL_FIND_ALL);
 
 			rs = pst.executeQuery();
 			while (rs.next()) {
@@ -101,10 +107,9 @@ public class ProposalDaoImpl implements ProposalDao {
 		PreparedStatement pst = null;
 		try {
 
-			if (Persistence.getWordDao().checkContent(p.getContent())) {
+			if (CommonPersistence.getWordDao().checkContent(p.getContent())) {
 
-				pst = con.prepareStatement(
-						"INSERT INTO proposals(content, votes, user_id, category_id) VALUES (?,?,?, ?)");
+				pst = con.prepareStatement(SQL_INSERT);
 				pst.setString(1, p.getContent());
 				pst.setInt(2, p.getVotes());
 				pst.setInt(3, p.getUserId());
@@ -136,7 +141,7 @@ public class ProposalDaoImpl implements ProposalDao {
 	public void updateProposal(Proposal p) {
 		PreparedStatement pst = null;
 		try {
-			pst = con.prepareStatement("UPDATE proposals SET CONTENT = ?, VOTES = ?, CATEGORY_ID = ?" + "WHERE ID = ?");
+			pst = con.prepareStatement(SQL_UPDATE);
 			pst.setString(1, p.getContent());
 			pst.setInt(2, p.getVotes());
 			pst.setInt(3, p.getCategoryId());
@@ -159,12 +164,12 @@ public class ProposalDaoImpl implements ProposalDao {
 	public void deleteProposalById(Integer id) {
 		PreparedStatement pst = null;
 		try {
-			pst = con.prepareStatement("DELETE FROM comments WHERE PROPOSAL_ID=?");
+			pst = con.prepareStatement(SQL_DELETE_COMMENTS);
 			pst.setInt(1, id);
 			pst.executeUpdate();
 			pst.close();
 
-			pst = con.prepareStatement("DELETE FROM proposals WHERE ID=?");
+			pst = con.prepareStatement(SQL_DELETE_PROPOSAL);
 			pst.setInt(1, id);
 			pst.executeUpdate();
 
