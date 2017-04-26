@@ -1,6 +1,6 @@
 package main;
 
-import dashboard.dashboard.services.impl.Report;
+import jpa.services.impl.Report;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import participationSystem.dto.Category;

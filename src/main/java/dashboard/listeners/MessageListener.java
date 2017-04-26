@@ -2,13 +2,13 @@ package dashboard.listeners;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
-import dashboard.dashboard.model.Category;
-import dashboard.dashboard.model.Comment;
-import dashboard.dashboard.model.Proposal;
-import dashboard.dashboard.services.CategoryService;
-import dashboard.dashboard.services.ProposalService;
-import dashboard.dashboard.services.UserService;
-import dashboard.dashboard.services.impl.Report;
+import jpa.model.Category;
+import jpa.model.Comment;
+import jpa.model.Proposal;
+import jpa.services.CategoryService;
+import jpa.services.ProposalService;
+import jpa.services.UserService;
+import jpa.services.impl.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 

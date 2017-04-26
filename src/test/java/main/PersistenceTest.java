@@ -1,13 +1,13 @@
 package main;
 
-import dashboard.dashboard.model.Category;
-import dashboard.dashboard.model.Comment;
-import dashboard.dashboard.model.Proposal;
-import dashboard.dashboard.model.User;
-import dashboard.dashboard.repositories.CategoryRepository;
-import dashboard.dashboard.repositories.CommentRepository;
-import dashboard.dashboard.repositories.ProposalRepository;
-import dashboard.dashboard.repositories.UserRepository;
+import jpa.model.Category;
+import jpa.model.Comment;
+import jpa.model.Proposal;
+import jpa.model.User;
+import jpa.repositories.CategoryRepository;
+import jpa.repositories.CommentRepository;
+import jpa.repositories.ProposalRepository;
+import jpa.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
