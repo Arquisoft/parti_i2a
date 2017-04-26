@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import common.dto.User;
 import common.persistence.CommonPersistence;
-import dashboard.dashboard.services.impl.Report;
+import jpa.services.impl.Report;
 import participationSystem.hello.dto.Category;
 import participationSystem.hello.dto.Comment;
 import participationSystem.hello.dto.Proposal;
