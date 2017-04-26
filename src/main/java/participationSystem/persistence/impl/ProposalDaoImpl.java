@@ -14,15 +14,6 @@ import java.util.List;
 
 public class ProposalDaoImpl implements ProposalDao {
 
-	// private static String SQL_FIND_PROPOSAL_BY_ID =
-	// Conf.getInstance().getProperty("SQL_FIND_PROPOSAL_BY_ID");
-	// private static String SQL_ALL_PROPOSALS =
-	// Conf.getInstance().getProperty("SQL_ALL_PROPOSALS");
-	// private static String SQL_DELETE_PROPOSAL =
-	// Conf.getInstance().getProperty("SQL_DELETE_PROPOSAL");
-	// private static String SQL_INSERT_PROPOSAL =
-	// Conf.getInstance().getProperty("SQL_INSERT_PROPOSAL");
-
 	private Connection con = Database.getConnection();
 
 	@Override
@@ -34,22 +25,25 @@ public class ProposalDaoImpl implements ProposalDao {
 			pst.setInt(1, id);
 
 			rs = pst.executeQuery();
-			rs.next();
+			while (rs.next()) {
 
-			Integer idProp = rs.getInt("id");
-			String content = rs.getString("content");
-			Integer votes = rs.getInt("votes");
-			Integer category_id = rs.getInt("category_id");
-			Integer userID = rs.getInt("user_id");
+				Integer idProp = rs.getInt("id");
+				String content = rs.getString("content");
+				Integer votes = rs.getInt("votes");
+				Integer category_id = rs.getInt("category_id");
+				Integer userID = rs.getInt("user_id");
 
-			Proposal proposal = new Proposal();
-			proposal.setVotes(votes);
-			proposal.setUserId(userID);
-			proposal.setContent(content);
-			proposal.setCategoryId(category_id);
-			proposal.setId(idProp);
+				Proposal proposal = new Proposal();
+				proposal.setVotes(votes);
+				proposal.setUserId(userID);
+				proposal.setContent(content);
+				proposal.setCategoryId(category_id);
+				proposal.setId(idProp);
 
-			return proposal;
+				return proposal;
+			}
+			
+			return null;
 
 		} catch (SQLException e) {
 			System.err.println(e);
@@ -142,8 +136,7 @@ public class ProposalDaoImpl implements ProposalDao {
 	public void updateProposal(Proposal p) {
 		PreparedStatement pst = null;
 		try {
-			pst = con.prepareStatement(
-					"UPDATE proposals SET CONTENT = ?, VOTES = ?, CATEGORY_ID = ?" + "WHERE ID = ?");
+			pst = con.prepareStatement("UPDATE proposals SET CONTENT = ?, VOTES = ?, CATEGORY_ID = ?" + "WHERE ID = ?");
 			pst.setString(1, p.getContent());
 			pst.setInt(2, p.getVotes());
 			pst.setInt(3, p.getCategoryId());
@@ -170,7 +163,7 @@ public class ProposalDaoImpl implements ProposalDao {
 			pst.setInt(1, id);
 			pst.executeUpdate();
 			pst.close();
-			
+
 			pst = con.prepareStatement("DELETE FROM proposals WHERE ID=?");
 			pst.setInt(1, id);
 			pst.executeUpdate();

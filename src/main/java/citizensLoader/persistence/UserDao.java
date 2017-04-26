@@ -20,4 +20,6 @@ public interface UserDao {
 	boolean citizenExists(User user);
 
 	boolean citizenHasSameData(User user);
+
+	List<User> findAllUsers();
 }

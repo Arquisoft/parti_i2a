@@ -23,6 +23,7 @@ public class UserDaoImpl implements UserDao {
 	private static String SQL_FIND_USER_BY_ID = "SELECT * FROM PUBLIC.USERS WHERE ID=?";
 	private static String SQL_FIND_USER_BY_EMAIL = "SELECT * FROM PUBLIC.USERS WHERE EMAIL=?";
 	private static String SQL_FIND_ALL_EMAILS = "SELECT EMAIL FROM PUBLIC.USERS";
+	private static String SQL_FIND_ALL_USERS = "SELECT * FROM PUBLIC.USERS";
 	private static String SQL_INSERT_USER = "INSERT INTO PUBLIC.USERS (dni, firstName, lastName, "
 			+ "password, email, birthDate, address, nationality, pollingStation) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -111,16 +112,13 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void createUser(User user) {
-		// TODO de momento la password sera siempre "pass",
-		// luego se cambiara a la generada en la primera entrega
-
 		PreparedStatement pst = null;
 		try {
 			pst = con.prepareStatement(SQL_INSERT_USER);
 			pst.setString(1, user.getDni());
 			pst.setString(2, user.getFirstName());
 			pst.setString(3, user.getLastName());
-			pst.setString(4, "pass");
+			pst.setString(4, user.getPassword());
 			pst.setString(5, user.getEmail());
 			pst.setDate(6, new java.sql.Date(user.getBirthdate().getTime()));
 			pst.setString(7, user.getAddress());
@@ -237,5 +235,48 @@ public class UserDaoImpl implements UserDao {
 	public boolean citizenHasSameData(User user) {
 		User userDB = getUserByEmail(user.getEmail());
 		return !userDB.equals(user);
+	}
+
+	@Override
+	public List<User> findAllUsers() {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		List<User> users = new ArrayList<User>();
+		try {
+			pst = con.prepareStatement(SQL_FIND_ALL_USERS);
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Integer idBase = rs.getInt("id");
+				String dni = rs.getString("dni");
+				String name = rs.getString("firstName");
+				String surname = rs.getString("lastName");
+				Date birth = rs.getDate("birthDate");
+				String email = rs.getString("email");
+				String nationality = rs.getString("nationality");
+				String address = rs.getString("address");
+				int polling = rs.getInt("pollingStation");
+				String pass = rs.getString("password");
+
+				User user = new User(dni, name, surname, birth, address, email, nationality, polling);
+				user.setId(idBase);
+				user.setPassword(pass);
+			}
+
+			return users;
+
+		} catch (SQLException e) {
+			System.err.println(e);
+			return null;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pst != null)
+					pst.close();
+			} catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
 	}
 }

@@ -22,7 +22,7 @@ public class Application {
 
 @Component
 class StartUp implements ApplicationListener<ContextRefreshedEvent> {
-    private boolean initialized = false;
+    private boolean initialized = true;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

@@ -1,16 +1,10 @@
 package main;
 
-import dashboard.dashboard.services.impl.Report;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import participationSystem.dto.Category;
-import participationSystem.dto.Comment;
-import participationSystem.dto.Proposal;
-import participationSystem.dto.User;
-import participationSystem.hello.model.AddComment;
-import participationSystem.hello.model.AddProposal;
-import participationSystem.hello.model.ControlAdmin;
-import participationSystem.hello.producers.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,14 +13,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import dashboard.dashboard.services.impl.Report;
+import participationSystem.dto.Category;
+import participationSystem.dto.Comment;
+import participationSystem.dto.Proposal;
+import participationSystem.dto.User;
+import participationSystem.hello.model.AddComment;
+import participationSystem.hello.model.AddProposal;
+import participationSystem.hello.model.ControlAdmin;
+import participationSystem.hello.producers.KafkaProducer;
 import participationSystem.persistence.CommentDao;
 import participationSystem.persistence.Persistence;
 import participationSystem.persistence.ProposalDao;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 public class MainController {
