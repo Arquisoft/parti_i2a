@@ -1,5 +1,6 @@
 package main;
 
+import citizensLoader.LoadUsers;
 import org.apache.commons.lang3.SystemUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,10 +29,14 @@ class StartUp implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (!initialized) {
             try {
+                LoadUsers load = new LoadUsers();
+
+                load.run("src/test/resources/testSmall.xlsx","pdf");
+
                 initialized=true;
                 if (SystemUtils.IS_OS_WINDOWS) {
                     Runtime.getRuntime().exec("cmd.exe /c start kafkaWindows.bat");
-                    Thread.sleep(0);
+                    Thread.sleep(35000);
 //                } else if (SystemUtils.IS_OS_LINUX) {
 //                    Runtime.getRuntime().exec("chmod +x kafkaLinux.sh");
 //                    new ProcessBuilder("./kafkaLinux.sh").start();

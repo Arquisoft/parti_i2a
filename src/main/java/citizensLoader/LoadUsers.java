@@ -17,13 +17,6 @@ import citizensLoader.parser.XlsxParser;
  *
  */
 public class LoadUsers {
-
-	public static void main(String... args) throws IOException {
-		final LoadUsers runner = new LoadUsers();
-		runner.run(args);
-
-	}
-
 	/**
 	 * Reads the file and output format of the letters specified
 	 * 
@@ -32,7 +25,7 @@ public class LoadUsers {
 	 *            to the citizens.
 	 * @throws IOException
 	 */
-	void run(String... args) throws IOException {
+	public void run(String... args) throws IOException {
 		if (args.length < 2) {
 			System.out.println("Argumentos: archivo a parsear, formato de las cartas");
 		} else {
