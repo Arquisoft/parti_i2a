@@ -1,9 +1,10 @@
 package persistence;
 
-import participationSystem.dto.Comment;
 import org.junit.Test;
-import participationSystem.persistence.CommentDao;
-import participationSystem.persistence.Persistence;
+
+import common.persistence.CommonPersistence;
+import participationSystem.hello.dto.Comment;
+import participationSystem.hello.persistence.CommentDao;
 
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CommentPersistenceTest {
-	private CommentDao cDao = Persistence.getCommentaryDao();
+	private CommentDao cDao = CommonPersistence.getCommentaryDao();
 
 	@Test
 	public void testVoteComment() {

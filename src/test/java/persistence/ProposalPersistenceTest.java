@@ -1,16 +1,17 @@
 package persistence;
 
 import org.junit.Test;
-import participationSystem.dto.Proposal;
-import participationSystem.persistence.Persistence;
-import participationSystem.persistence.ProposalDao;
+
+import common.persistence.CommonPersistence;
+import participationSystem.hello.dto.Proposal;
+import participationSystem.hello.persistence.ProposalDao;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class ProposalPersistenceTest {
-	private ProposalDao pDao = Persistence.getProposalDao();
+	private ProposalDao pDao = CommonPersistence.getProposalDao();
 
 	@Test
 	public void testVoteProposal() {

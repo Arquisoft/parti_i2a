@@ -1,7 +1,8 @@
 package persistence;
 
 import org.junit.Test;
-import participationSystem.persistence.Database;
+
+import common.persistence.Database;
 
 import static org.junit.Assert.assertNotNull;
 

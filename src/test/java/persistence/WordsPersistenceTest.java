@@ -1,8 +1,9 @@
 package persistence;
 
 import org.junit.Test;
-import participationSystem.persistence.Persistence;
-import participationSystem.persistence.WordDao;
+
+import common.persistence.CommonPersistence;
+import participationSystem.hello.persistence.WordDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class WordsPersistenceTest {
 	
-	private WordDao dao = Persistence.getWordDao();
+	private WordDao dao = CommonPersistence.getWordDao();
 	
 
 	@Test

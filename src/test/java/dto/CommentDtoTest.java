@@ -2,7 +2,8 @@ package dto;
 
 import org.junit.Before;
 import org.junit.Test;
-import participationSystem.dto.Comment;
+
+import participationSystem.hello.dto.Comment;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -2,7 +2,8 @@ package hello.model;
 
 import org.junit.Before;
 import org.junit.Test;
-import participationSystem.dto.Category;
+
+import participationSystem.hello.dto.Category;
 import participationSystem.hello.model.AddProposal;
 
 import java.text.ParseException;

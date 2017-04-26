@@ -1,20 +1,21 @@
 package persistence;
 
-import org.junit.Test;
-import participationSystem.dto.User;
-import participationSystem.persistence.Persistence;
-import participationSystem.persistence.UserDao;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
+
+import common.dto.User;
+import common.persistence.CommonPersistence;
+import common.persistence.UserDao;
 
 public class UserPersistenceTest {
-	private UserDao dao = Persistence.getUserDao();
+	private UserDao dao = CommonPersistence.getUserDao();
 
 	@Test
 	public void testFindById() throws ParseException {
