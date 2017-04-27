@@ -1,9 +1,8 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import common.dto.User;
+import common.persistence.CommonPersistence;
+import jpa.services.impl.Report;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,10 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import common.dto.User;
-import common.persistence.CommonPersistence;
-import jpa.services.impl.Report;
 import participationSystem.hello.dto.Category;
 import participationSystem.hello.dto.Comment;
 import participationSystem.hello.dto.Proposal;
@@ -29,12 +24,15 @@ import participationSystem.hello.persistence.CommentDao;
 import participationSystem.hello.persistence.ProposalDao;
 import participationSystem.hello.producers.KafkaProducer;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 @ComponentScan(basePackages = {"jpa","participationSystem"})
 public class MainController {
 
-	@Autowired
-	private KafkaProducer kafkaProducer;
+	private final KafkaProducer kafkaProducer;
 
 	private ProposalDao pDao = CommonPersistence.getProposalDao();
 	private CommentDao cDao = CommonPersistence.getCommentaryDao();
@@ -45,10 +43,16 @@ public class MainController {
 
 	private boolean latch = true;
 
-	@Autowired
-	private Report report;
+    private final Report report;
 
-	@RequestMapping("/dashboard")
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Autowired
+    public MainController(KafkaProducer kafkaProducer, Report report) {
+        this.kafkaProducer = kafkaProducer;
+        this.report = report;
+    }
+
+    @RequestMapping("/dashboard")
 	public String landing() throws InterruptedException {
 		if (latch) {
 			latch = false;
