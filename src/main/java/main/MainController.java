@@ -2,6 +2,7 @@ package main;
 
 import common.dto.User;
 import common.persistence.CommonPersistence;
+import jpa.repositories.UserRepository;
 import jpa.services.impl.Report;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import participationSystem.hello.dto.Category;
 import participationSystem.hello.dto.Comment;
@@ -44,6 +42,9 @@ public class MainController {
 	private boolean latch = true;
 
     private final Report report;
+
+	@Autowired
+	private UserRepository repository;
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
@@ -234,4 +235,24 @@ public class MainController {
 		return "/user/proposal";
 	}
 
+	@PostMapping("/participants/update")
+	public String updateInfo(jpa.model.User participant, Model model){
+		model.addAttribute("participant",repository.save(participant));
+		return "update";
+	}
+
+	@PostMapping("/participants/userInfo")
+	public String showData(Model model){
+		jpa.model.User participant = repository.findUserByEmail(
+				SecurityContextHolder.getContext().getAuthentication().getName());
+		model.addAttribute("participant",participant);
+		return "update";
+	}
+
+	@PostMapping("/participants/changePassword")
+	public String showData(jpa.model.User participant, Model model){
+		model.addAttribute("participant",repository
+				.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+		return "changePassword";
+	}
 }
