@@ -13,8 +13,8 @@ import org.junit.Test;
 import citizensLoader.letters.PDFLetter;
 import citizensLoader.parser.XlsxParser;
 import common.dto.User;
+import common.persistence.CommonPersistence;
 import common.persistence.UserDao;
-import common.persistence.impl.UserDaoImpl;
 
 /**
  * Clase que prueba la implementación del parseador de archivos en formato
@@ -25,74 +25,63 @@ import common.persistence.impl.UserDaoImpl;
 
 public class XlsxParserTest {
 	private UserDao uDao;
-	private final static String JUAN = "User[Id: null; Name: Juan; Surname: Torres Pardo; "
+
+	private final static String JUAN = "User[Name: Juan; Surname: Torres Pardo; "
 			+ "Email: juan@example.com; Birth date: 10/10/1985; "
 			+ "Address: C/ Federico García Lorca 2; Nationality: Español; DNI: 90500084Y; Polling station: 1]";
-	private final static String LUIS = "User[Id: null; Name: Luis; Surname: López Fernando; "
+	private final static String LUIS = "User[Name: Luis; Surname: López Fernando; "
 			+ "Email: luis@example.com; Birth date: 02/03/1970; " + "Address: C/ Real Oviedo 2; Nationality: "
 			+ "Español; DNI: 19160962F; Polling station: 2]";
-	private final static String ANA = "User[Id: null; Name: Ana; Surname: Torres Pardo; "
+	private final static String ANA = "User[Name: Ana; Surname: Torres Pardo; "
 			+ "Email: ana@example.com; Birth date: 01/01/1960; " + "Address: Av. De la Constitución 8; Nationality: "
 			+ "Español; DNI: 09940449X; Polling station: 3]";
-	private final static String PEDRO = "User[Id: null; Name: Pedro; Surname: Pérez García; "
+	private final static String PEDRO = "User[Name: Pedro; Surname: Pérez García; "
 			+ "Email: pedro@example.com; Birth date: 04/09/1979; " + "Address: C/ La playa 7; Nationality: "
 			+ "Chileno; DNI: 56739582Y; Polling station: 4]";
 
 	@Before
 	public void setUp() throws IOException {
-		this.uDao = new UserDaoImpl();
+		this.uDao = CommonPersistence.getUserDao();
 	}
 
 	@Test
 	public void testParseSmallFileCorrectly() throws IOException {
 		File file = new File("src/test/resources/testSmall.xlsx");
 		XlsxParser parser = new XlsxParser(file, new PDFLetter());
-		List<User> users = parser.readListTest();
+		List<User> users = parser.readList();
 
-		assertEquals(JUAN, users.get(0).toString());
+		assertEquals(JUAN, users.get(0).toStringNoId());
 
-		assertEquals(LUIS, users.get(1).toString());
+		assertEquals(LUIS, users.get(1).toStringNoId());
 
-		assertEquals(ANA, users.get(2).toString());
+		assertEquals(ANA, users.get(2).toStringNoId());
 
-		assertEquals(PEDRO, users.get(3).toString());
+		assertEquals(PEDRO, users.get(3).toStringNoId());
 	}
 
 	@Test
 	public void testParseSmallFileDifferentInfo() throws IOException {
-		// File file = new File("src/test/resources/testSmallDifferent.xlsx");
 		File file = new File("src/test/resources/testSmall.xlsx");
 		XlsxParser parser = new XlsxParser(file, new PDFLetter());
-		List<User> users = parser.readListTest();
+		parser.readList();
 
 		// demostramos que la info en la bbdd no cambió
-		// Citizen juan = db.findByDNI("90500084Y");
-		// assertNotNull(juan);
-		// assertEquals(JUAN, juan.toString());
-		User juan = users.get(0);
+		User juan = uDao.getUserByEmail("juan@example.com");
 		assertNotNull(juan);
-		assertEquals(JUAN, juan.toString());
+		assertEquals(JUAN, juan.toStringNoId());
 
-		// Citizen luis = db.findByDNI("19160962F");
-		// assertNotNull(luis);
-		// assertEquals(LUIS, luis.toString());
-		User luis = users.get(1);
+		User luis = uDao.getUserByEmail("luis@example.com");
 		assertNotNull(luis);
-		assertEquals(LUIS, luis.toString());
+		assertEquals(LUIS, luis.toStringNoId());
 
-		// Citizen ana = db.findByDNI("09940449X");
-		// assertNotNull(ana);
-		// assertEquals(ANA, ana.toString());
-		User ana = users.get(2);
+		User ana = uDao.getUserByEmail("ana@example.com");
 		assertNotNull(ana);
-		assertEquals(ANA, ana.toString());
+		assertEquals(ANA, ana.toStringNoId());
 
-		// Citizen pedro = db.findByDNI("56739582Y");
-		// assertNotNull(pedro);
-		// assertEquals(PEDRO, pedro.toString());
-		User pedro = users.get(3);
+		User pedro = uDao.getUserByEmail("pedro@example.com");
 		assertNotNull(pedro);
-		assertEquals(PEDRO, pedro.toString());
+		assertEquals(PEDRO, pedro.toStringNoId());
+
 	}
 
 }
