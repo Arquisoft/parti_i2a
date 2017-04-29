@@ -129,4 +129,13 @@ public class User {
 
 	}
 
+	public Object toStringNoId() {
+		String simpleDate = new SimpleDateFormat("dd/MM/yyyy").format(birthdate);
+
+		return "User[Name: " + firstName + "; Surname: " + lastName + "; " + "Email: " + email + "; Birth date: "
+				+ simpleDate + "; " + "Address: " + address + "; Nationality: " + nationality + "; DNI: " + dni
+				+ "; Polling station: " + pollingStation +"]";
+
+	}
+
 }

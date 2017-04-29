@@ -1,17 +1,26 @@
 package main;
 
-import common.dto.User;
-import common.persistence.CommonPersistence;
-import jpa.repositories.UserRepository;
-import jpa.services.impl.Report;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import common.dto.User;
+import common.persistence.CommonPersistence;
+import jpa.repositories.UserRepository;
+import jpa.services.impl.Report;
 import participationSystem.hello.dto.Category;
 import participationSystem.hello.dto.Comment;
 import participationSystem.hello.dto.Proposal;
@@ -21,10 +30,6 @@ import participationSystem.hello.model.ControlAdmin;
 import participationSystem.hello.persistence.CommentDao;
 import participationSystem.hello.persistence.ProposalDao;
 import participationSystem.hello.producers.KafkaProducer;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 @ComponentScan(basePackages = {"jpa","participationSystem"})

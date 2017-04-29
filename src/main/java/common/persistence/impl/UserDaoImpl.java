@@ -15,9 +15,6 @@ import common.persistence.Database;
 import common.persistence.UserDao;
 
 public class UserDaoImpl implements UserDao {
-	// private static String SQL_FIND_USER_BY_ID =
-	// Conf.getInstance().getProperty("SQL_FIND_USER_BY_ID");
-
 	private ReportWritter log;
 
 	private static String SQL_FIND_USER_BY_ID = "SELECT * FROM PUBLIC.USERS WHERE ID=?";
@@ -39,12 +36,11 @@ public class UserDaoImpl implements UserDao {
 		ResultSet rs = null;
 		try {
 			pst = con.prepareStatement(SQL_FIND_USER_BY_ID);
-			if (id != null) {
-				pst.setInt(1, id);
+			pst.setInt(1, id);
 
-				rs = pst.executeQuery();
-				rs.next();
+			rs = pst.executeQuery();
 
+			while (rs.next()) {
 				Integer idBase = rs.getInt("id");
 				String dni = rs.getString("dni");
 				String name = rs.getString("firstName");
@@ -61,11 +57,11 @@ public class UserDaoImpl implements UserDao {
 				user.setPassword(pass);
 
 				return user;
-			} else {
-				return null;
 			}
 
-		} catch (SQLException e) {
+			return null;
+		} catch (
+		SQLException e) {
 			System.err.println(e);
 			return null;
 		} finally {
@@ -261,7 +257,7 @@ public class UserDaoImpl implements UserDao {
 				User user = new User(dni, name, surname, birth, address, email, nationality, polling);
 				user.setId(idBase);
 				user.setPassword(pass);
-				
+
 				users.add(user);
 			}
 

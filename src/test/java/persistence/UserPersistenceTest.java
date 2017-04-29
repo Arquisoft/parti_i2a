@@ -29,7 +29,23 @@ public class UserPersistenceTest {
 		System.out.println(found);
 		System.out.println(user);
 		assertEquals(user, found);
+	
 	}
+	
+	@Test
+	public void testFindByEmail() throws ParseException {
+		Date simpleDate = new SimpleDateFormat("dd/MM/yyyy").parse("25/03/1950");
+		
+		User user = new User("12345678A", "Pepe", "Calleja", simpleDate, "Oviedo", "calleja@email.com", "Spanish", 2);
+		user.setId(1);
+		user.setPassword("password");
+		
+		User found = dao.getUserByEmail("calleja@email.com");
+		System.out.println(found);
+		System.out.println(user);
+		assertEquals(user, found);
+	}
+
 
 	@Test
 	public void createUser() throws ParseException {
@@ -39,9 +55,9 @@ public class UserPersistenceTest {
 		user.setPassword("password");
 		
 		dao.createUser(user);
-		user.setId(6);
+		user.setId(10);
 		
-		User found = dao.getUserById(6);
+		User found = dao.getUserById(10);
 		System.out.println(found);
 		System.out.println(user);
 		
