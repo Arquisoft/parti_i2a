@@ -30,8 +30,8 @@
       </div>
       <hr/>
       <br/>
-      
-      
+
+
       <div class="panel-body">
       <a th:href="${'/user/orderCommentsPopularity/'+proposal.getId()}" class="btn btn-primary">
       <i class="icon-home icon-white"></i>By popularity</a>
@@ -49,7 +49,7 @@
             <td class="text-center" th:text="${comment.getUserName()}"/>
             <td class="text-center" th:text="${comment.getFecha()}"/>
             <td class="text-center">
-              <a th:href="${'/user/voteComment/'+ comment.getId()}" 
+              <a th:href="${'/user/voteComment/'+ comment.getId()}"
                         class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span>Vote</a>
             </td>
           </tr>
@@ -65,7 +65,7 @@
           <a href="/user/home" class="btn btn-primary"><i class="icon-home icon-white"></i>Home</a>
           <button type="submit" class="btn btn-primary">Send</button>
         </form>
-      </div>	
+      </div>
     </div>
   </body>
 </html>

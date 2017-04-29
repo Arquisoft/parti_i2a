@@ -235,24 +235,24 @@ public class MainController {
 		return "/user/proposal";
 	}
 
-	@PostMapping("/participants/update")
+	@RequestMapping("/participants/update")
 	public String updateInfo(jpa.model.User participant, Model model){
 		model.addAttribute("participant",repository.save(participant));
-		return "update";
+		return "/participants/update";
 	}
 
-	@PostMapping("/participants/userInfo")
+	@RequestMapping("/participants/userInfo")
 	public String showData(Model model){
 		jpa.model.User participant = repository.findUserByEmail(
 				SecurityContextHolder.getContext().getAuthentication().getName());
 		model.addAttribute("participant",participant);
-		return "update";
+		return "/participants/update";
 	}
 
-	@PostMapping("/participants/changePassword")
+	@RequestMapping("/participants/changePassword")
 	public String showData(jpa.model.User participant, Model model){
 		model.addAttribute("participant",repository
 				.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-		return "changePassword";
+		return "/participants/changePassword";
 	}
 }
