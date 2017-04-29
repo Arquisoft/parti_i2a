@@ -9,10 +9,10 @@
             <p>Email: <input type="email" th:field="*{email}" /></p>
             <p>FirstName: <input type="text" th:field="*{firstName}" /></p>
             <p>LastName: <input type="text" th:field="*{lastName}" /></p>
-            <p>Date of birth: <input type="date" th:field="*{dateOfBirth}" /></p>
+            <p>Date of birth: <input type="date" th:field="*{birthDate}" /></p>
             <p>Nationality: <input type="text" th:field="*{nationality}" /></p>
             <p>Address: <input type="text" th:field="*{address}" /></p>
-            <p>NIF/NIE: <input type="text" th:field="*{nationalId}" /></p>
+            <p>NIF/NIE: <input type="text" th:field="*{dni}" /></p>
             <p><input type="submit" value="Update" /> <input type="reset" value="Reset" /></p>
         </form>
         <form action="#" th:action="@{/changePassword}" th:object="${participant}" method="post">
@@ -20,10 +20,10 @@
                 <input type="hidden" th:field="*{email}"/>
                 <input type="hidden" th:field="*{firstName}" />
                 <input type="hidden" th:field="*{lastName}"/>
-                <input type="hidden" th:field="*{dateOfBirth}" />
+                <input type="hidden" th:field="*{birthDate}" />
                 <input type="hidden" th:field="*{nationality}"/>
                 <input type="hidden" th:field="*{address}" />
-                <input type="hidden" th:field="*{nationalId}"/>
+                <input type="hidden" th:field="*{dni}"/>
                 <input type="submit" value="change password"/>
         </form>
     </body>
