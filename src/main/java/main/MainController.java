@@ -28,21 +28,22 @@ import java.util.List;
 
 @Controller
 @ComponentScan(basePackages = {"jpa","participationSystem"})
+@SessionAttributes("participant")
 public class MainController {
 
-	private final KafkaProducer kafkaProducer;
-
 	private ProposalDao pDao = CommonPersistence.getProposalDao();
+
 	private CommentDao cDao = CommonPersistence.getCommentaryDao();
 	private User user;
-
+	private jpa.model.User userJpa;
 	private static final Logger logger = Logger.getLogger(MainController.class);
-	private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
 
+	private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
 	private boolean latch = true;
 
+	//Beans
+	private final KafkaProducer kafkaProducer;
     private final Report report;
-
 	private final UserRepository repository;
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
@@ -79,6 +80,7 @@ public class MainController {
 		model.addAttribute("controlAdmin", new ControlAdmin());
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		this.user = CommonPersistence.getUserDao().getUserByEmail(email);
+		this.userJpa = repository.findUserByEmail(email);
 
 		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().equals("[ROLE_ADMIN]"))
 			return "/admin";
@@ -236,21 +238,19 @@ public class MainController {
 	}
 
 	@RequestMapping("/participants/update")
-	public String updateInfo(jpa.model.User participant, Model model){
-		model.addAttribute("participant",repository.save(participant));
+	public String updateInfo(Model model,@ModelAttribute("participant") jpa.model.User participant) {
+		repository.save(participant);
 		return "/participants/update";
 	}
 
 	@RequestMapping("/participants/userInfo")
 	public String showData(Model model){
-		jpa.model.User participant = repository.findUserByEmail(
-				SecurityContextHolder.getContext().getAuthentication().getName());
-		model.addAttribute("participant",participant);
+		model.addAttribute("participant",userJpa);
 		return "/participants/update";
 	}
 
-	@RequestMapping("/participants/changePassword")
-	public String showData(jpa.model.User participant, Model model){
+	@PostMapping("/participants/changePassword")
+	public String changePassword(Model model){
 		model.addAttribute("participant",repository
 				.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
 		return "/participants/changePassword";

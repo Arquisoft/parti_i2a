@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
     <meta charset="UTF-8" />
@@ -14,27 +15,33 @@
 <div class="page-header">
     <h1>Council Dashboard</h1>
 </div>
-<div class="container">
+<div class="container" th:object="${@report}">
 
-    <h1>Categories: <span class="badge">9</span></h1>
-    <ul class="list-group" th:each="category : ${@report.getCategories()}">
-        <h2 class="list-group-item-heading" th:text="${category.name}"></h2>
+    <h1>Categories: <span class="badge" th:text="*{#lists.size(categories)}">0</span></h1>
+    <ul class="list-group" th:each="category : *{categories}" th:object="${category}">
+        <h2 class="list-group-item-heading" th:text="*{name}"></h2>
 
-        <ul class="list-group-item" th:each="prop : ${category.getProposals()}">
+        <ul class="list-group-item" th:each="prop : *{proposals}" th:object="${prop}">
             <h4 class="list-group-item-heading"
-                th:text="${'# ' + prop.getContent() + ' ['
-                 + prop.getUser().getFirstName() + prop.getUser().getLastName() + ']'}">
-        </h4><p><span class="label label-default">Votes <span th:text="${prop.getVotes()}">fail</span></span></p>
+                th:text="|# *{content} [*{user.firstName} *{user.lastName}]|">
+            </h4>
 
-            <ul class="list-group-item" th:each="comment : ${prop.getComments()}">
-                <h5 class="list-group-item-heading" th:text="${
-                 comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()
-                + ' @' + comment.getDate()}">
-                </h5><p><span class="label label-default">Votes <span th:text="${comment.getVotes()}">fail</span></span></p>
+            <p><span class="label label-default">Votes <span th:text="*{votes}">0</span></span></p>
 
-
-                <li class="list-group-item" th:text="${comment.getContent()}" ></li>
+            <ul class="list-group-item" th:each="comment : *{comments}" th:object="${comment}">
+                <h5 class="list-group-item-heading" th:text="|*{user.firstName} *{user.lastName}@| +
+                                                    *{#dates.format(date, 'dd/MMM/yyyy HH:mm')}">
+                </h5><p><span class="label label-default">Votes <span th:text="*{votes}">fail</span></span></p>
+                <li class="list-group-item" th:text="*{content}" ></li>
             </ul>
+            <h5  class="list-group-item-heading" th:if="*{#lists.isEmpty(comments)}">
+                There are no comments for this proposal
+            </h5>
+        </ul>
+        <ul>
+            <h4 class="list-group-item-heading" th:if="*{#lists.isEmpty(proposals)}">
+                There are no proposals in this category
+            </h4>
         </ul>
     </ul>
 </div>

@@ -14,7 +14,7 @@
 	  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 	}
 	body{margin:40px;}
-	
+
 	.btn-circle {
 	  margin-top: 10px;
 	  margin-left: 43%;
@@ -75,10 +75,10 @@
 				<label for="checkcat">Delete proposal:</label>
 				<div class="form-group">
 				<select class="form-control" th:field="*{proposal}">
-				  <option th:each="proposal : ${proposals}" 
-				          th:value="${proposal.id}" 
+				  <option th:each="proposal : ${proposals}"
+				          th:value="${proposal.id}"
 				          th:text="${proposal.content}"></option>
-				</select> 
+				</select>
 					<button type="submit" id="ok3" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i></button>
 				</div>
 			</form>
@@ -87,7 +87,7 @@
 					<input rows="1" type="date" id="addDate" th:field="*{text}" class="form-control input-lg"/>
 					<button type="submit" id="ok4" class="btn btn-info btn-circle btn-lg"><i class="glyphicon glyphicon-ok"></i></button>
 				</div> -->
-				</div> 
+				</div>
 				<br/>
 				<hr class="colorgraph"/>
 			</fieldset>
