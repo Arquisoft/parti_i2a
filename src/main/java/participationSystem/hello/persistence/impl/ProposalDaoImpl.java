@@ -1,16 +1,16 @@
 package participationSystem.hello.persistence.impl;
 
+import common.persistence.CommonPersistence;
+import common.persistence.Database;
+import participationSystem.hello.dto.Proposal;
+import participationSystem.hello.persistence.ProposalDao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import common.persistence.Database;
-import common.persistence.CommonPersistence;
-import participationSystem.hello.dto.Proposal;
-import participationSystem.hello.persistence.ProposalDao;
 
 public class ProposalDaoImpl implements ProposalDao {
 	private static String SQL_FIND_BY_ID = "SELECT * FROM proposals WHERE ID=?";
@@ -20,13 +20,15 @@ public class ProposalDaoImpl implements ProposalDao {
 	private static String SQL_DELETE_COMMENTS =  "DELETE FROM comments WHERE PROPOSAL_ID=?";
 	private static String SQL_DELETE_PROPOSAL =  "DELETE FROM proposals WHERE ID=?";
 
-	private Connection con = Database.getConnection();
+	//private Connection con = Database.getConnection();
 
 	@Override
 	public Proposal getProposalById(Integer id) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_FIND_BY_ID);
 			pst.setInt(1, id);
 
@@ -58,6 +60,7 @@ public class ProposalDaoImpl implements ProposalDao {
 			try {
 				rs.close();
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -69,7 +72,9 @@ public class ProposalDaoImpl implements ProposalDao {
 		List<Proposal> proposals = new ArrayList<Proposal>();
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		Connection con = null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_FIND_ALL);
 
 			rs = pst.executeQuery();
@@ -96,6 +101,7 @@ public class ProposalDaoImpl implements ProposalDao {
 			try {
 				rs.close();
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -105,7 +111,9 @@ public class ProposalDaoImpl implements ProposalDao {
 	@Override
 	public void createProposal(Proposal p) throws Exception {
 		PreparedStatement pst = null;
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 
 			if (CommonPersistence.getWordDao().checkContent(p.getContent())) {
 
@@ -125,6 +133,7 @@ public class ProposalDaoImpl implements ProposalDao {
 		} finally {
 			try {
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -140,7 +149,9 @@ public class ProposalDaoImpl implements ProposalDao {
 
 	public void updateProposal(Proposal p) {
 		PreparedStatement pst = null;
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_UPDATE);
 			pst.setString(1, p.getContent());
 			pst.setInt(2, p.getVotes());
@@ -154,6 +165,7 @@ public class ProposalDaoImpl implements ProposalDao {
 		} finally {
 			try {
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -163,7 +175,9 @@ public class ProposalDaoImpl implements ProposalDao {
 	@Override
 	public void deleteProposalById(Integer id) {
 		PreparedStatement pst = null;
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_DELETE_COMMENTS);
 			pst.setInt(1, id);
 			pst.executeUpdate();
@@ -178,6 +192,7 @@ public class ProposalDaoImpl implements ProposalDao {
 		} finally {
 			try {
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}

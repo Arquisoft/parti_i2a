@@ -1,8 +1,7 @@
 package persistence;
 
-import org.junit.Test;
-
 import common.persistence.CommonPersistence;
+import org.junit.Test;
 import participationSystem.hello.persistence.WordDao;
 
 import java.util.ArrayList;

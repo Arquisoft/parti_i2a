@@ -1,8 +1,7 @@
 package persistence;
 
-import org.junit.Test;
-
 import common.persistence.CommonPersistence;
+import org.junit.Test;
 import participationSystem.hello.dto.Comment;
 import participationSystem.hello.persistence.CommentDao;
 

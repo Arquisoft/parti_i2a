@@ -1,5 +1,10 @@
 package common.persistence.impl;
 
+import citizensLoader.logger.ReportWritter;
+import common.dto.User;
+import common.persistence.Database;
+import common.persistence.UserDao;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,11 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import citizensLoader.logger.ReportWritter;
-import common.dto.User;
-import common.persistence.Database;
-import common.persistence.UserDao;
 
 public class UserDaoImpl implements UserDao {
 	private ReportWritter log;
@@ -24,7 +24,6 @@ public class UserDaoImpl implements UserDao {
 	private static String SQL_INSERT_USER = "INSERT INTO PUBLIC.USERS (dni, firstName, lastName, "
 			+ "password, email, birthDate, address, nationality, pollingStation) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private Connection con = Database.getConnection();
 
 	public UserDaoImpl() {
 		log = new ReportWritter();
@@ -34,7 +33,9 @@ public class UserDaoImpl implements UserDao {
 	public User getUserById(Integer id) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		Connection con=null;
 		try {
+			con= Database.getConnection();
 			pst = con.prepareStatement(SQL_FIND_USER_BY_ID);
 			pst.setInt(1, id);
 
@@ -61,7 +62,7 @@ public class UserDaoImpl implements UserDao {
 
 			return null;
 		} catch (
-		SQLException e) {
+				SQLException e) {
 			System.err.println(e);
 			return null;
 		} finally {
@@ -70,6 +71,8 @@ public class UserDaoImpl implements UserDao {
 					rs.close();
 				if (pst != null)
 					pst.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -81,7 +84,9 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		List<String> emails = new ArrayList<String>();
+		Connection con = null;
 		try {
+			con = Database.getConnection();
 			pst = con.prepareStatement(SQL_FIND_ALL_EMAILS);
 
 			rs = pst.executeQuery();
@@ -100,6 +105,8 @@ public class UserDaoImpl implements UserDao {
 					rs.close();
 				if (pst != null)
 					pst.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -109,7 +116,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void createUser(User user) {
 		PreparedStatement pst = null;
+		Connection con=null;
 		try {
+			con = Database.getConnection();
 			pst = con.prepareStatement(SQL_INSERT_USER);
 			pst.setString(1, user.getDni());
 			pst.setString(2, user.getFirstName());
@@ -128,6 +137,8 @@ public class UserDaoImpl implements UserDao {
 		} finally {
 			try {
 				pst.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -139,7 +150,9 @@ public class UserDaoImpl implements UserDao {
 	public User getUserByEmail(String email) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		Connection con=null;
 		try {
+			con = Database.getConnection();
 			pst = con.prepareStatement(SQL_FIND_USER_BY_EMAIL);
 			pst.setString(1, email);
 
@@ -172,6 +185,8 @@ public class UserDaoImpl implements UserDao {
 					rs.close();
 				if (pst != null)
 					pst.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -181,7 +196,7 @@ public class UserDaoImpl implements UserDao {
 	/**
 	 * Method that inserts in the database all the parsed users. Prints a log if
 	 * there is some type of error.
-	 * 
+	 *
 	 * @param list
 	 *            - list of citizens that have been parsed
 	 * @param filename
@@ -209,8 +224,8 @@ public class UserDaoImpl implements UserDao {
 
 	/**
 	 * Checks if a citizen already exists in the database
-	 * 
-	 * @param c
+	 *
+	 * @param
 	 *            - citizen to check
 	 * @return true if it exists, false if not
 	 */
@@ -222,9 +237,9 @@ public class UserDaoImpl implements UserDao {
 
 	/**
 	 * Checks if there is some user already in the database with wrong data
-	 * 
-	 * @param c
-	 *            Citizen
+	 *
+	 * @param
+	 *
 	 * @return true if there is no user with different data, false otherwise
 	 */
 	@Override
@@ -238,7 +253,9 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		List<User> users = new ArrayList<User>();
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_FIND_ALL_USERS);
 
 			rs = pst.executeQuery();
@@ -272,6 +289,8 @@ public class UserDaoImpl implements UserDao {
 					rs.close();
 				if (pst != null)
 					pst.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}

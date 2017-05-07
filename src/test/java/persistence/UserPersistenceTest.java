@@ -1,18 +1,18 @@
 package persistence;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import common.dto.User;
+import common.persistence.CommonPersistence;
+import common.persistence.UserDao;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import common.dto.User;
-import common.persistence.CommonPersistence;
-import common.persistence.UserDao;
 
 public class UserPersistenceTest {
 	private UserDao dao = CommonPersistence.getUserDao();

@@ -1,5 +1,10 @@
 package participationSystem.hello.persistence.impl;
 
+import common.persistence.CommonPersistence;
+import common.persistence.Database;
+import participationSystem.hello.dto.Comment;
+import participationSystem.hello.persistence.CommentDao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,11 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import common.persistence.Database;
-import common.persistence.CommonPersistence;
-import participationSystem.hello.dto.Comment;
-import participationSystem.hello.persistence.CommentDao;
 
 public class CommentDaoImpl implements CommentDao {
 
@@ -21,14 +21,15 @@ public class CommentDaoImpl implements CommentDao {
 	private static String SQL_PROPOSAL_COMMENT = "SELECT * FROM comments WHERE PROPOSAL_ID=?";
 	private static String SQL_COMMENT_ORDER_BY_DATE = "SELECT * FROM comments WHERE PROPOSAL_ID=? ORDER BY date DESC";
 	private static String SQL_FIND_COMMENT_BY_ID = "SELECT * FROM comments WHERE ID=?";
-	private Connection con = Database.getConnection();
 
 	@Override
 	public List<Comment> getCommentsFromProposalId(Integer id) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		List<Comment> comments = new ArrayList<Comment>();
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_PROPOSAL_COMMENT);
 			pst.setInt(1, id);
 
@@ -55,6 +56,7 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				rs.close();
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -64,7 +66,9 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public void createComment(Comment p) throws Exception {
 		PreparedStatement pst = null;
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			if (CommonPersistence.getWordDao().checkContent(p.getContent())) {
 				pst = con.prepareStatement(SQL_INSERT_COMMENT);
 				pst.setString(1, p.getContent());
@@ -83,6 +87,7 @@ public class CommentDaoImpl implements CommentDao {
 		} finally {
 			try {
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -94,7 +99,9 @@ public class CommentDaoImpl implements CommentDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		List<Comment> comments = new ArrayList<Comment>();
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_COMMENT_ORDER_BY_DATE);
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
@@ -120,6 +127,7 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				rs.close();
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -131,8 +139,10 @@ public class CommentDaoImpl implements CommentDao {
 	public Comment getCommentById(Integer id) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+		Connection con=null;
 
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_FIND_COMMENT_BY_ID);
 			pst.setInt(1, id);
 
@@ -156,6 +166,7 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				rs.close();
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -170,8 +181,9 @@ public class CommentDaoImpl implements CommentDao {
 
 	public void updateComment(Comment c) {
 		PreparedStatement pst = null;
-
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(
 					"UPDATE comments SET CONTENT = ?, " + "VOTES = ?, date = ? WHERE ID = ?");
 			pst.setString(1, c.getContent());
@@ -186,6 +198,7 @@ public class CommentDaoImpl implements CommentDao {
 		} finally {
 			try {
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
@@ -197,7 +210,9 @@ public class CommentDaoImpl implements CommentDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		List<Comment> comments = new ArrayList<Comment>();
+		Connection con=null;
 		try {
+			con=Database.getConnection();
 			pst = con.prepareStatement(SQL_COMMENT_ORDER_BY_POPULARITY);
 			pst.setInt(1, idInt);
 			rs = pst.executeQuery();
@@ -223,6 +238,7 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				rs.close();
 				pst.close();
+				con.close();
 			} catch (SQLException e) {
 				System.err.println(e);
 			}
