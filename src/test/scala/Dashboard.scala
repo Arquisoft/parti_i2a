@@ -1,0 +1,88 @@
+
+import scala.concurrent.duration._
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+
+class Dashboard extends Simulation {
+
+	val httpProtocol = http
+		.baseURL("http://localhost:8080")
+		.inferHtmlResources()
+		.acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+		.acceptEncodingHeader("gzip, deflate")
+		.acceptLanguageHeader("es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3")
+		.userAgentHeader("Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0")
+
+	val headers_0 = Map("Upgrade-Insecure-Requests" -> "1")
+
+    val uri1 = "http://localhost:8080/dashboard"
+
+	val scn = scenario("Dashboard")
+		.exec(http("request_0")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(43)
+		.exec(http("request_1")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(13)
+		.exec(http("request_2")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(3)
+		.exec(http("request_3")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(3)
+		.exec(http("request_4")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(7)
+		.exec(http("request_5")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(4)
+		.exec(http("request_6")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_7")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_8")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_9")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_10")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(3)
+		.exec(http("request_11")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_12")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_13")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_14")
+			.get("/dashboard")
+			.headers(headers_0))
+		.pause(1)
+		.exec(http("request_15")
+			.get("/dashboard")
+			.headers(headers_0))
+
+	setUp(scn.inject(rampUsers(30) over(60 seconds))).protocols(httpProtocol)
+}
