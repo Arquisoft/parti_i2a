@@ -1,5 +1,6 @@
 /target/
 
+
 .metadata
 bin/
 tmp/
@@ -55,3 +56,4 @@ local.properties
 
 *.iml
 .idea
+generatedFiles
