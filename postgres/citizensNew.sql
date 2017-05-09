@@ -210,6 +210,12 @@ INSERT INTO public.users(
   nationality)
 VALUES (5, '76756556E', 'admin', 'admin', 'admin@email.com', 'password',
         '1967-05-13', 'Oviedo', 0, 'Spanish');
+INSERT INTO public.users(
+  id, dni, firstName, lastName, email, password, birthDate, address, pollingStation,
+  nationality)
+VALUES (6, '7173675H', 'user', 'user', 'user@example.com', 'password',
+        '1967-05-13', 'Oviedo', 3, 'Spanish');
+
 
 ALTER SEQUENCE public.user_id_seq RESTART WITH 6;
 

@@ -55,9 +55,9 @@ public class UserPersistenceTest {
 		user.setPassword("password");
 		
 		dao.createUser(user);
-		user.setId(10);
+		user.setId(11);
 		
-		User found = dao.getUserById(10);
+		User found = dao.getUserById(11);
 		System.out.println(found);
 		System.out.println(user);
 		
