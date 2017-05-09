@@ -116,7 +116,8 @@ public class User {
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj.toString().equals(this.toString());
+		if (!(obj instanceof User)) return false;
+		return ((User)obj).toStringNoId().equals(this.toStringNoId());
 	}
 
 	@Override

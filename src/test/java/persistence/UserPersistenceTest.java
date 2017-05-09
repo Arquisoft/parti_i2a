@@ -51,13 +51,12 @@ public class UserPersistenceTest {
 	public void createUser() throws ParseException {
 		Date simpleDate = new SimpleDateFormat("dd/MM/yyyy").parse("25/03/1950");
 		
-		User user = new User("987654312A", "Pepe", "Calleja", simpleDate, "Oviedo", "calleja@email.com", "Spanish", 2);
+		User user = new User("762437687U", "Nuevo", "nuevo", simpleDate, "Oviedo", "nuevo@email.com", "Spanish", 2);
 		user.setPassword("password");
 		
 		dao.createUser(user);
-		user.setId(11);
 		
-		User found = dao.getUserById(11);
+		User found = dao.getUserByEmail("nuevo@email.com");
 		System.out.println(found);
 		System.out.println(user);
 		
