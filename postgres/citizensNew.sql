@@ -217,7 +217,7 @@ VALUES (6, '7173675H', 'user', 'user', 'user@example.com', 'password',
         '1967-05-13', 'Oviedo', 3, 'Spanish');
 
 
-ALTER SEQUENCE public.user_id_seq RESTART WITH 6;
+ALTER SEQUENCE public.user_id_seq RESTART WITH 7;
 
 INSERT INTO public.categories(
   id, name)
