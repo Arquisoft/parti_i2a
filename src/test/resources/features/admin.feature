@@ -12,6 +12,6 @@ Scenario: Admin can introduce new non-allowed words /
     And they won't be allowed to be used in the proposals
     
 Scenario: Admin can delete non-appropiate proposals /
-    When the admin writes the id of a proposal /
+    When the admin selects a proposal /
     And press the accept button /
     Then the proposal will be deleted    

@@ -26,17 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		// auth
-		// .inMemoryAuthentication()
-		// .withUser("user").password("password").roles("USER");
-		//
-		// List<String> emails = Persistence.getUserDao().findAllEmails();
-		//
-		// for(String email : emails) {
-		// auth
-		// .inMemoryAuthentication()
-		// .withUser(email).password("password").roles("USER");
-		// }
+		auth.inMemoryAuthentication().withUser("user@example.com").password("password").roles("USER");
 
 		List<User> users = CommonPersistence.getUserDao().findAllUsers();
 

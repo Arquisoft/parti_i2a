@@ -1,6 +1,6 @@
 Feature: Being able to login
 Scenario: User logs in /
-   	Given the user "calleja@email.com" /
+   	Given the user "user@email.com" /
    	And password "password" /
     When the users clicks on Login /
     Then the user sees the proposal list
